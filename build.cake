@@ -1,7 +1,3 @@
-#load nuget:?package=nunit&version=3.10.1.0
-#tool nuget:?package=NUnit.ConsoleRunner&version=3.11.1
-//#tool xunit.runner.console
-
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 
@@ -25,13 +21,24 @@ Task("Build")
 		DotNetCoreBuild("", new DotNetCoreBuildSettings{ Configuration = configuration });
 	});
 
-Task("Test")
+Task("AllTests")
 	.IsDependentOn("Build")
-	.Does(() =>
+	.Does(() => 
 	{
-		var testSearchPath = $"**/bin/{configuration}/netcoreapp2.1/*Tests.dll";
-		Information($"Searching for tests in {testSearchPath}");
-		NUnit3(testSearchPath);
+		//TODO: Experiment: Try directly plugging a path into DotNetCoreTest, eg: "**/bin/{configuration}/netcoreapp2.1/*Tests.dll"
+		//as this method stops if it finds a failing test in the current project (i.e. subsequent test projects are not run)
+		var projects = GetFiles("**/*Tests.csproj");
+        
+		foreach(var project in projects)
+        {
+            DotNetCoreTest(
+                project.FullPath,
+                new DotNetCoreTestSettings()
+                {
+                    Configuration = configuration,
+                    NoBuild = true
+                });
+        };
 	});
 
 RunTarget(target);

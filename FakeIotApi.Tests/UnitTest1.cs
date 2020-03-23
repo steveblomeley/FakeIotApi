@@ -15,17 +15,17 @@ namespace Tests
             Assert.Pass("Test passed");
         }
 
-        [Test]
-        public void Test2()
-        {
-            Assert.Fail("Test failed");
-        }
+        //[Test]
+        //public void Test2()
+        //{
+        //    Assert.Fail("Test failed");
+        //}
 
-        [Test]
-        [Ignore("Test ignored")]
-        public void Test3()
-        {
-            Assert.Pass();
-        }
+        //[Test]
+        //[Ignore("Test ignored")]
+        //public void Test3()
+        //{
+        //    Assert.Pass();
+        //}
     }
 }
