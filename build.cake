@@ -25,11 +25,9 @@ Task("AllTests")
 	.IsDependentOn("Build")
 	.Does(() => 
 	{
-		//TODO: Experiment: Try directly plugging a path into DotNetCoreTest, eg: "**/bin/{configuration}/netcoreapp2.1/*Tests.dll"
-		//as this method stops if it finds a failing test in the current project (i.e. subsequent test projects are not run)
-		var projects = GetFiles("**/*Tests.csproj");
+		var testProjects = GetFiles("**/*Tests.csproj");
         
-		foreach(var project in projects)
+		foreach(var project in testProjects)
         {
             DotNetCoreTest(
                 project.FullPath,
