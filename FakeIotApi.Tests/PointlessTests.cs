@@ -1,8 +1,8 @@
 using NUnit.Framework;
 
-namespace Tests
+namespace FakeIotApi.NUnitTests
 {
-    public class Tests
+    public class PointlessTests
     {
         [SetUp]
         public void Setup()

@@ -7,14 +7,6 @@ Task("Default")
 		Information("Hello World!");
 	});
 
-Task("Path")
-	.IsDependentOn("Default")
-	.Does(() =>
-	{
-		Information("Doing something else, that is dependent on printing Hello World.");
-		Information($"Path is: {EnvironmentVariable("PATH")}");
-	});
-
 Task("Build")
 	.Does(() =>
 	{
